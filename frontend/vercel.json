@@ -1,0 +1,23 @@
+{
+    "headers": [
+        {
+            "source": "/api/public/menu/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "s-maxage=300, stale-while-revalidate=600"
+                },
+                {
+                    "key": "CDN-Cache-Control",
+                    "value": "max-age=300"
+                }
+            ]
+        }
+    ],
+    "crons": [
+        {
+            "path": "/api/cron/cleanup-retention",
+            "schedule": "0 3 * * *"
+        }
+    ]
+}
