@@ -1,0 +1,200 @@
+# Route Migration Matrix
+
+This matrix tracks which routes are native in `server/` and which still use legacy proxy.
+
+## Native now
+
+- `GET /api/public/bootstrap/:restaurantId`
+- `GET /api/public/menu/:restaurantId`
+- `GET /api/public/locations`
+- `GET /api/public/location/geocode`
+- `GET /api/public/location/search`
+- `GET /api/public/location/ip`
+- `GET /api/public/restaurant-overview/:restaurantId`
+- `GET /api/discover/locations`
+- `GET /api/location/geocode`
+- `GET /api/location/search`
+- `GET /api/owner/settings?restaurantId=...` (public read mode)
+- `GET /api/owner/settings` (authenticated owner/employee/admin-impersonation mode)
+- `PATCH /api/owner/settings`
+- `GET /api/owner/status`
+- `GET /api/owner/orders`
+- `PATCH /api/owner/orders`
+- `GET /api/owner/coupons`
+- `POST /api/owner/coupons`
+- `PATCH /api/owner/coupons`
+- `DELETE /api/owner/coupons`
+- `GET /api/owner/bookings`
+- `POST /api/owner/bookings`
+- `PATCH /api/owner/bookings`
+- `GET /api/owner/car-spots`
+- `POST /api/owner/car-spots`
+- `DELETE /api/owner/car-spots`
+- `POST /api/owner/create-linked-account`
+- `GET /api/owner/delivery-settings`
+- `PATCH /api/owner/delivery-settings`
+- `GET /api/owner/employees`
+- `POST /api/owner/employees`
+- `PATCH /api/owner/employees`
+- `DELETE /api/owner/employees`
+- `POST /api/owner/menu-bulk`
+- `GET /api/owner/analytics`
+- `GET /api/owner/connections`
+- `GET /api/owner/locations`
+- `POST /api/owner/locations`
+- `PATCH /api/owner/locations`
+- `GET /api/owner/open-items`
+- `POST /api/owner/open-items`
+- `DELETE /api/owner/open-items`
+- `GET /api/owner/customers`
+- `PATCH /api/owner/customers`
+- `GET /api/owner/dashboard-data`
+- `POST /api/owner/custom-bill/create-order`
+- `GET /api/owner/custom-bill/history`
+- `POST /api/owner/custom-bill/history`
+- `PATCH /api/owner/custom-bill/history`
+- `GET /api/owner/delivery`
+- `POST /api/owner/delivery`
+- `PATCH /api/owner/delivery`
+- `DELETE /api/owner/delivery`
+- `POST /api/owner/delivery/invite`
+- `GET /api/owner/service-requests`
+- `POST /api/owner/service-requests`
+- `PATCH /api/owner/service-requests`
+- `GET /api/owner/dine-in-history`
+- `POST /api/owner/dine-in-history/undo`
+- `GET /api/owner/inventory`
+- `POST /api/owner/inventory/adjust`
+- `POST /api/owner/inventory/sync-from-menu`
+- `GET /api/owner/payouts`
+- `POST /api/owner/refund`
+- `POST /api/owner/whatsapp-onboarding`
+- `POST /api/owner/settings/upload-qr-url`
+- `GET /api/owner/tables`
+- `POST /api/owner/tables`
+- `PATCH /api/owner/tables`
+- `GET /api/owner/whatsapp-direct/conversations`
+- `PATCH /api/owner/whatsapp-direct/conversations`
+- `GET /api/owner/whatsapp-direct/customer-details`
+- `PATCH /api/owner/whatsapp-direct/customer-details`
+- `GET /api/owner/whatsapp-direct/messages`
+- `POST /api/owner/whatsapp-direct/messages`
+- `PATCH /api/owner/whatsapp-direct/messages`
+- `POST /api/owner/whatsapp-direct/upload-url`
+- `POST /api/owner/cleanup-stale-tabs`
+- `GET /api/owner/dine-in-tables`
+- `POST /api/owner/dine-in-tables`
+- `PATCH /api/owner/dine-in-tables`
+- `DELETE /api/owner/dine-in-tables`
+- `GET /api/owner/menu`
+- `POST /api/owner/menu`
+- `PATCH /api/owner/menu` (single item, category image, bulk actions)
+- `DELETE /api/owner/menu`
+- `GET /api/order/active`
+- `POST /api/order/create` (hybrid native + legacy fallback mode)
+- `GET /api/order/status/:orderId`
+- `PATCH /api/order/update`
+- `POST /api/order/cancel`
+- `POST /api/order/mark-paid`
+- `POST /api/order/settle-payment`
+- `POST /api/delivery/calculate-charge`
+- `POST /api/customer/lookup`
+- `POST /api/customer/register`
+- `GET /api/customer/profile`
+- `PATCH /api/customer/profile`
+- `GET /api/customer/hub-data`
+- `GET /api/customer/analytics`
+- `GET /api/employee/me`
+- `PATCH /api/employee/me`
+- `GET /api/employee/accept-invite`
+- `POST /api/employee/accept-invite`
+- `GET /api/admin/dashboard-stats`
+- `GET /api/admin/analytics`
+- `POST /api/admin/log-impersonation`
+- `GET /api/admin/listings`
+- `PATCH /api/admin/listings`
+- `GET /api/admin/listing-analytics`
+- `GET /api/admin/users`
+- `PATCH /api/admin/users`
+- `GET /api/admin/users/:userId`
+- `GET /api/admin/audit-logs`
+- `POST /api/admin/check-ids`
+- `GET /api/admin/mailbox`
+- `POST /api/admin/mailbox`
+- `PATCH /api/admin/mailbox`
+- `POST /api/admin/retry-webhook`
+- `GET /api/admin/waitlist`
+- `GET /api/admin/ops-telemetry`
+- `GET /api/admin/read-telemetry`
+- `GET /api/admin/restaurants`
+- `PATCH /api/admin/restaurants`
+- `GET /api/admin/migration/display-ids`
+- `POST /api/admin/migrate-delivery-settings`
+- `POST /api/admin/migrate-delivery-settings/cleanup`
+- `POST /api/admin/migrate-custom-categories`
+- `POST /api/admin/migrate-custom-categories/cleanup`
+- `POST /api/auth/check-role`
+- `POST /api/auth/complete-profile`
+- `POST /api/auth/login`
+- `POST /api/auth/login-google`
+- `POST /api/auth/forgot-password`
+- `POST /api/auth/signup-owner`
+- `POST /api/auth/generate-session-token`
+- `POST /api/auth/verify-token`
+- `GET /api/dine-in/table-status`
+- `POST /api/dine-in/create-tab`
+- `POST /api/dine-in/join-table`
+- `GET /api/dine-in/tab-status/:tabId`
+- `POST /api/dine-in/initiate-payment`
+- `POST /api/dine-in/unlock-payment`
+- `POST /api/dine-in/clean-table`
+- `PATCH /api/dine-in/clean-table`
+- `POST /api/payment/create-order`
+- `POST /api/payment/create-split-order` (compatibility alias)
+- `GET /api/payment/status?splitId=...`
+- `GET /api/payment/split-status?splitId=...`
+- `POST /api/payment/phonepe/initiate`
+- `GET /api/payment/phonepe/status/:orderId`
+- `GET /api/payment/phonepe/token`
+- `POST /api/payment/phonepe/refund`
+- `POST /api/payment/phonepe/callback`
+- `GET /api/payment/upi-qr-card`
+- `POST /api/ai/scan-menu`
+- `GET /api/whatsapp/webhook`
+- `POST /api/whatsapp/webhook`
+- `GET /api/rider/dashboard`
+- `PATCH /api/rider/dashboard`
+- `POST /api/rider/accept-invite`
+- `POST /api/rider/accept-order`
+- `PATCH /api/rider/update-order-status`
+- `POST /api/rider/reached-restaurant`
+- `POST /api/rider/start-delivery`
+- `POST /api/rider/attempt-delivery`
+- `POST /api/rider/mark-failed`
+- `POST /api/rider/return-order`
+- `POST /api/rider/update-payment-status`
+- `POST /api/rider/send-payment-request`
+- `PATCH /api/rider/send-payment-request`
+- `POST /api/rider/optimize-route`
+- `POST /api/waitlist`
+- `POST /api/telemetry/client-event`
+- `GET /api/cron/cleanup-retention`
+- `GET /api/test`
+- `GET /api/test-admin`
+- `GET /api/user/addresses`
+- `POST /api/user/addresses`
+- `DELETE /api/user/addresses`
+- `POST /api/user/delete`
+- `POST /api/webhooks/razorpay` (feature-flagged native mode)
+- `GET /healthz`
+- `GET /readyz`
+
+## Proxy fallback
+
+- Route inventory currently reports `Proxy: 0`.
+- Legacy proxy remains enabled as a safety net for future endpoints or compatibility-forwarded handlers.
+
+## Next targets
+
+1. Remove remaining hybrid fallback branches (`/api/order/create`, `/api/customer/register`, `/api/owner/menu` unsupported shapes, `/api/webhooks/razorpay` flag-off path).
+2. Run full load tests (`npm run loadtest:smoke`, `npm run loadtest:peak`) against Render staging before cutover.

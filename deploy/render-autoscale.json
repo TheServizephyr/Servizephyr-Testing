@@ -1,0 +1,8 @@
+{
+  "minInstances": 2,
+  "maxInstances": 8,
+  "targetCPUPercent": 60,
+  "targetMemoryPercent": 70,
+  "maxRequestsPerInstance": 400,
+  "notes": "Apply these values in Render Autoscaling settings before production traffic cutover."
+}

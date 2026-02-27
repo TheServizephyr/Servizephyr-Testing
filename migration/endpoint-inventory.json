@@ -1,0 +1,681 @@
+{
+  "generatedAt": "2026-02-23T23:02:16.770Z",
+  "root": ".",
+  "summary": {
+    "total": 134,
+    "native": 134,
+    "proxy": 0
+  },
+  "routes": [
+    {
+      "route": "/api/admin/analytics",
+      "source": "src/app/api/admin/analytics/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/audit-logs",
+      "source": "src/app/api/admin/audit-logs/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/check-ids",
+      "source": "src/app/api/admin/check-ids/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/dashboard-stats",
+      "source": "src/app/api/admin/dashboard-stats/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/listing-analytics",
+      "source": "src/app/api/admin/listing-analytics/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/listings",
+      "source": "src/app/api/admin/listings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/log-impersonation",
+      "source": "src/app/api/admin/log-impersonation/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/mailbox",
+      "source": "src/app/api/admin/mailbox/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/migrate-custom-categories",
+      "source": "src/app/api/admin/migrate-custom-categories/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/migrate-custom-categories/cleanup",
+      "source": "src/app/api/admin/migrate-custom-categories/cleanup/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/migrate-delivery-settings",
+      "source": "src/app/api/admin/migrate-delivery-settings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/migrate-delivery-settings/cleanup",
+      "source": "src/app/api/admin/migrate-delivery-settings/cleanup/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/migration/display-ids",
+      "source": "src/app/api/admin/migration/display-ids/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/ops-telemetry",
+      "source": "src/app/api/admin/ops-telemetry/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/read-telemetry",
+      "source": "src/app/api/admin/read-telemetry/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/restaurants",
+      "source": "src/app/api/admin/restaurants/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/retry-webhook",
+      "source": "src/app/api/admin/retry-webhook/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/users",
+      "source": "src/app/api/admin/users/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/users/:userId",
+      "source": "src/app/api/admin/users/[userId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/admin/waitlist",
+      "source": "src/app/api/admin/waitlist/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/ai/scan-menu",
+      "source": "src/app/api/ai/scan-menu/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/check-role",
+      "source": "src/app/api/auth/check-role/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/complete-profile",
+      "source": "src/app/api/auth/complete-profile/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/forgot-password",
+      "source": "src/app/api/auth/forgot-password/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/generate-session-token",
+      "source": "src/app/api/auth/generate-session-token/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/login",
+      "source": "src/app/api/auth/login/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/login-google",
+      "source": "src/app/api/auth/login-google/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/signup-owner",
+      "source": "src/app/api/auth/signup-owner/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/auth/verify-token",
+      "source": "src/app/api/auth/verify-token/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/cron/cleanup-retention",
+      "source": "src/app/api/cron/cleanup-retention/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/customer/analytics",
+      "source": "src/app/api/customer/analytics/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/customer/hub-data",
+      "source": "src/app/api/customer/hub-data/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/customer/lookup",
+      "source": "src/app/api/customer/lookup/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/customer/profile",
+      "source": "src/app/api/customer/profile/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/customer/register",
+      "source": "src/app/api/customer/register/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/delivery/calculate-charge",
+      "source": "src/app/api/delivery/calculate-charge/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/clean-table",
+      "source": "src/app/api/dine-in/clean-table/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/create-tab",
+      "source": "src/app/api/dine-in/create-tab/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/initiate-payment",
+      "source": "src/app/api/dine-in/initiate-payment/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/join-table",
+      "source": "src/app/api/dine-in/join-table/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/tab-status/:tabId",
+      "source": "src/app/api/dine-in/tab-status/[tabId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/table-status",
+      "source": "src/app/api/dine-in/table-status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/dine-in/unlock-payment",
+      "source": "src/app/api/dine-in/unlock-payment/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/discover/locations",
+      "source": "src/app/api/discover/locations/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/employee/accept-invite",
+      "source": "src/app/api/employee/accept-invite/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/employee/me",
+      "source": "src/app/api/employee/me/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/location/geocode",
+      "source": "src/app/api/location/geocode/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/location/search",
+      "source": "src/app/api/location/search/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/active",
+      "source": "src/app/api/order/active/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/cancel",
+      "source": "src/app/api/order/cancel/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/create",
+      "source": "src/app/api/order/create/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/create",
+      "source": "src/api/order/create/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/mark-paid",
+      "source": "src/app/api/order/mark-paid/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/settle-payment",
+      "source": "src/app/api/order/settle-payment/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/status/:orderId",
+      "source": "src/app/api/order/status/[orderId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/order/update",
+      "source": "src/app/api/order/update/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/analytics",
+      "source": "src/app/api/owner/analytics/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/bookings",
+      "source": "src/app/api/owner/bookings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/car-spots",
+      "source": "src/app/api/owner/car-spots/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/cleanup-stale-tabs",
+      "source": "src/app/api/owner/cleanup-stale-tabs/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/connections",
+      "source": "src/app/api/owner/connections/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/coupons",
+      "source": "src/app/api/owner/coupons/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/create-linked-account",
+      "source": "src/app/api/owner/create-linked-account/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/custom-bill/create-order",
+      "source": "src/app/api/owner/custom-bill/create-order/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/custom-bill/history",
+      "source": "src/app/api/owner/custom-bill/history/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/customers",
+      "source": "src/app/api/owner/customers/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/dashboard-data",
+      "source": "src/app/api/owner/dashboard-data/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/delivery",
+      "source": "src/app/api/owner/delivery/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/delivery-settings",
+      "source": "src/app/api/owner/delivery-settings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/delivery/invite",
+      "source": "src/app/api/owner/delivery/invite/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/dine-in-history",
+      "source": "src/app/api/owner/dine-in-history/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/dine-in-history/undo",
+      "source": "src/app/api/owner/dine-in-history/undo/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/dine-in-tables",
+      "source": "src/app/api/owner/dine-in-tables/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/employees",
+      "source": "src/app/api/owner/employees/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/inventory",
+      "source": "src/app/api/owner/inventory/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/inventory/adjust",
+      "source": "src/app/api/owner/inventory/adjust/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/inventory/sync-from-menu",
+      "source": "src/app/api/owner/inventory/sync-from-menu/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/locations",
+      "source": "src/app/api/owner/locations/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/menu",
+      "source": "src/app/api/owner/menu/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/menu",
+      "source": "src/api/owner/menu/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/menu-bulk",
+      "source": "src/app/api/owner/menu-bulk/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/open-items",
+      "source": "src/app/api/owner/open-items/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/orders",
+      "source": "src/app/api/owner/orders/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/payouts",
+      "source": "src/app/api/owner/payouts/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/refund",
+      "source": "src/app/api/owner/refund/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/service-requests",
+      "source": "src/app/api/owner/service-requests/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/settings",
+      "source": "src/app/api/owner/settings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/settings",
+      "source": "src/api/owner/settings/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/settings/upload-qr-url",
+      "source": "src/app/api/owner/settings/upload-qr-url/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/status",
+      "source": "src/app/api/owner/status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/tables",
+      "source": "src/app/api/owner/tables/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/whatsapp-direct/conversations",
+      "source": "src/app/api/owner/whatsapp-direct/conversations/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/whatsapp-direct/customer-details",
+      "source": "src/app/api/owner/whatsapp-direct/customer-details/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/whatsapp-direct/messages",
+      "source": "src/app/api/owner/whatsapp-direct/messages/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/whatsapp-direct/upload-url",
+      "source": "src/app/api/owner/whatsapp-direct/upload-url/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/owner/whatsapp-onboarding",
+      "source": "src/app/api/owner/whatsapp-onboarding/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/create-order",
+      "source": "src/app/api/payment/create-order/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/create-split-order",
+      "source": "src/app/api/payment/create-split-order/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/phonepe/callback",
+      "source": "src/app/api/payment/phonepe/callback/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/phonepe/initiate",
+      "source": "src/app/api/payment/phonepe/initiate/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/phonepe/refund",
+      "source": "src/app/api/payment/phonepe/refund/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/phonepe/status/:orderId",
+      "source": "src/app/api/payment/phonepe/status/[orderId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/phonepe/token",
+      "source": "src/app/api/payment/phonepe/token/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/split-status",
+      "source": "src/app/api/payment/split-status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/status",
+      "source": "src/app/api/payment/status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/payment/upi-qr-card",
+      "source": "src/app/api/payment/upi-qr-card/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/location/geocode",
+      "source": "src/app/api/public/location/geocode/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/location/ip",
+      "source": "src/app/api/public/location/ip/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/location/search",
+      "source": "src/app/api/public/location/search/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/locations",
+      "source": "src/app/api/public/locations/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/menu/:restaurantId",
+      "source": "src/app/api/public/menu/[restaurantId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/public/restaurant-overview/:restaurantId",
+      "source": "src/app/api/public/restaurant-overview/[restaurantId]/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/accept-invite",
+      "source": "src/app/api/rider/accept-invite/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/accept-order",
+      "source": "src/app/api/rider/accept-order/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/attempt-delivery",
+      "source": "src/app/api/rider/attempt-delivery/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/dashboard",
+      "source": "src/app/api/rider/dashboard/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/mark-failed",
+      "source": "src/app/api/rider/mark-failed/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/optimize-route",
+      "source": "src/app/api/rider/optimize-route/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/reached-restaurant",
+      "source": "src/app/api/rider/reached-restaurant/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/return-order",
+      "source": "src/app/api/rider/return-order/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/send-payment-request",
+      "source": "src/app/api/rider/send-payment-request/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/start-delivery",
+      "source": "src/app/api/rider/start-delivery/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/update-order-status",
+      "source": "src/app/api/rider/update-order-status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/rider/update-payment-status",
+      "source": "src/app/api/rider/update-payment-status/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/telemetry/client-event",
+      "source": "src/app/api/telemetry/client-event/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/test",
+      "source": "src/app/api/test/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/test-admin",
+      "source": "src/app/api/test-admin/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/user/addresses",
+      "source": "src/app/api/user/addresses/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/user/delete",
+      "source": "src/app/api/user/delete/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/waitlist",
+      "source": "src/app/api/waitlist/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/webhooks/razorpay",
+      "source": "src/app/api/webhooks/razorpay/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/webhooks/razorpay",
+      "source": "src/api/webhooks/razorpay/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/whatsapp/webhook",
+      "source": "src/app/api/whatsapp/webhook/route.js",
+      "status": "native"
+    },
+    {
+      "route": "/api/whatsapp/webhook",
+      "source": "src/api/whatsapp/webhook/route.js",
+      "status": "native"
+    }
+  ]
+}

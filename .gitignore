@@ -1,0 +1,16 @@
+node_modules/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Logs and reports
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Coverage / temp outputs
+coverage/
+.nyc_output/
