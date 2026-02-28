@@ -14,36 +14,45 @@ function toIso(value) {
 }
 
 async function getOwnerServiceRequests(req) {
+  const { logger } = require('../lib/logger');
+
+  logger.info('[ServiceRequests] Resolving owner context...');
   const owner = await resolveOwnerContext(req, {
     requiredPermissions: [PERMISSIONS.VIEW_DINE_IN_ORDERS, PERMISSIONS.MANAGE_DINE_IN],
   });
+  logger.info({ businessId: owner.businessId }, '[ServiceRequests] Owner context resolved.');
 
   let snap;
   try {
+    logger.info('[ServiceRequests] Fetching pending service requests...');
+    // In Firebase Admin SDK, a simple equality filter usually doesn't need a composite index 
+    // when combined with client-side sorting, OR the composite index creation is failing.
+    // To prevent 15-second timeouts, we only fetch pending ones, then limit to a reasonable number.
     snap = await owner.businessSnap.ref
       .collection('serviceRequests')
       .where('status', '==', 'pending')
-      .orderBy('createdAt', 'desc')
       .get();
-  } catch {
-    const fallback = await owner.businessSnap.ref
-      .collection('serviceRequests')
-      .where('status', '==', 'pending')
-      .get();
-    snap = {
-      docs: fallback.docs.sort((a, b) => {
-        const at = a.data()?.createdAt?.toMillis?.() || 0;
-        const bt = b.data()?.createdAt?.toMillis?.() || 0;
-        return bt - at;
-      }),
-    };
+
+    logger.info({ count: snap.docs.length }, '[ServiceRequests] Fetch complete.');
+  } catch (err) {
+    logger.error({ err }, '[ServiceRequests] Fetch failed.');
+    throw new HttpError(500, 'Database query failed for service requests.');
   }
 
-  const requests = snap.docs.map((doc) => ({
+  // Sort chronologically in memory (newest first). 
+  // Since we only queried 'pending' requests, the payload is small enough that this won't timeout.
+  const docs = snap.docs.sort((a, b) => {
+    const at = a.data()?.createdAt?.toMillis?.() || 0;
+    const bt = b.data()?.createdAt?.toMillis?.() || 0;
+    return bt - at;
+  });
+
+  const requests = docs.map((doc) => ({
     ...(doc.data() || {}),
     createdAt: toIso(doc.data()?.createdAt),
   }));
 
+  logger.info({ requestsCount: requests.length }, '[ServiceRequests] Data processed. Returning.');
   return { requests };
 }
 

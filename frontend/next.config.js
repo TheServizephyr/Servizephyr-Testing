@@ -93,9 +93,9 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Suppress Next.js Image legacy prop warnings
-      config.infrastructureLogging = {
-        level: 'error',
-      };
+      // config.infrastructureLogging = {
+      //   level: 'error',
+      // };
     }
     return config;
   },

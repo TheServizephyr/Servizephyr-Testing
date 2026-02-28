@@ -5,7 +5,8 @@
   "description": "Independent Express backend for ServiZephyr (Render deploy target)",
   "main": "src/index.js",
   "scripts": {
-    "dev": "node --watch src/index.js",
+    "dev": "node src/index.js",
+    "dev:watch": "node --watch src/index.js",
     "build": "node -e \"console.log('No build step required for Express backend')\"",
     "start": "node src/index.js",
     "check": "node -e \"require('./src/app'); console.log('server app import ok')\"",
