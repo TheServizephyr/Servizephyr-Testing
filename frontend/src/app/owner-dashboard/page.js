@@ -228,14 +228,21 @@ function PageContent() {
         console.log(`[Dashboard] Dashboard API Response Status: ${dashboardRes.status}`);
         console.log(`[Dashboard] Connections API Response Status: ${connectionsRes.status}`);
 
-        if (!dashboardRes.ok || !connectionsRes.ok) {
-          const errorData = !dashboardRes.ok ? await dashboardRes.json() : await connectionsRes.json();
-          console.error("[Dashboard] API Error:", errorData.message);
-          throw new Error(errorData.message || 'Failed to fetch initial data');
+        // Dashboard data is required — throw if it fails
+        if (!dashboardRes.ok) {
+          const errorData = await dashboardRes.json().catch(() => ({}));
+          throw new Error(errorData.message || 'Failed to fetch dashboard data');
         }
 
         const dashboardData = await dashboardRes.json();
-        const connectionsData = await connectionsRes.json();
+
+        // Connections are non-critical — default to empty if it fails
+        let connectionsData = { connections: [] };
+        if (connectionsRes.ok) {
+          connectionsData = await connectionsRes.json();
+        } else {
+          console.warn("[Dashboard] Connections API failed, defaulting to empty list.");
+        }
 
         console.log("[Dashboard] Successfully fetched dashboard data:", dashboardData);
         console.log("[Dashboard] Successfully fetched connections data:", connectionsData);
