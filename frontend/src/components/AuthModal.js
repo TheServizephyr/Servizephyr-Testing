@@ -143,34 +143,22 @@ export default function AuthModal({ isOpen, onClose }) {
     console.log("[DEBUG] AuthModal: handleGoogleLogin started.");
 
     try {
-      // Use popup for localhost (redirect doesn't work well on localhost)
-      // Use redirect for production (better for mobile)
-      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-      if (isLocalhost) {
-        console.log("[AuthModal] Localhost detected - using popup...");
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-        console.log("[AuthModal] Popup successful, processing...");
-        localStorage.removeItem('isLoggingIn');
-        await handleAuthSuccess(user);
-      } else {
-        console.log("[AuthModal] Production - using redirect...");
-        setMsg("Redirecting to Google sign-in...");
-
-        // Set persistence BEFORE redirect
-        const { setPersistence, browserLocalPersistence } = await import('firebase/auth');
-        await setPersistence(auth, browserLocalPersistence);
-        console.log("[AuthModal] ✓ Persistence set before redirect");
-
-        localStorage.setItem('isLoggingIn', JSON.stringify({ timestamp: Date.now() }));
-        await signInWithRedirect(auth, googleProvider);
-        // Page will redirect away
-      }
+      console.log("[AuthModal] Using popup for Google login...");
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log("[AuthModal] Popup successful, processing...");
+      localStorage.removeItem('isLoggingIn');
+      await handleAuthSuccess(user);
     } catch (err) {
       console.error("[AuthModal] Login error:", err);
-      setMsg(`Login Failed: ${err.message}`);
-      setMsgType("error");
+      // Ignore user closing popup
+      if (err.code !== 'auth/popup-closed-by-user') {
+        setMsg(`Login Failed: ${err.message}`);
+        setMsgType("error");
+      } else {
+        setMsg("");
+        setMsgType("");
+      }
       setLoading(false);
       localStorage.removeItem('isLoggingIn');
     }

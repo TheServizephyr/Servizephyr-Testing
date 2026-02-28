@@ -82,26 +82,19 @@ function LoginPageContent() {
         setError("");
 
         try {
-            // Use popup for localhost (redirect doesn't work well on localhost)
-            // Use redirect for production (better for mobile)
-            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-            if (isLocalhost) {
-                console.log("[Login] Localhost detected - using popup...");
-                const result = await signInWithPopup(auth, googleProvider);
-                console.log("[Login] Popup successful, processing...");
-                setLoading(true);
-                setMsg("Verifying user details...");
-                await handleAuthSuccess(result.user);
-            } else {
-                console.log("[Login] Production - using redirect...");
-                await setPersistence(auth, browserLocalPersistence);
-                sessionStorage.setItem('isLoggingIn', JSON.stringify({ timestamp: Date.now() }));
-                await signInWithRedirect(auth, googleProvider);
-            }
+            console.log("[Login] Using popup for Google login...");
+            const result = await signInWithPopup(auth, googleProvider);
+            console.log("[Login] Popup successful, processing...");
+            setLoading(true);
+            setMsg("Verifying user details...");
+            sessionStorage.removeItem('isLoggingIn');
+            await handleAuthSuccess(result.user);
         } catch (err) {
             console.error("Login error:", err);
-            setError(err.message || "Login failed. Please try again.");
+            // Ignore if user closed the popup without signing in
+            if (err.code !== 'auth/popup-closed-by-user') {
+                setError(err.message || "Login failed. Please try again.");
+            }
             setLoading(false);
             sessionStorage.removeItem('isLoggingIn');
         }
