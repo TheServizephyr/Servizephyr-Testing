@@ -143,12 +143,21 @@ export default function AuthModal({ isOpen, onClose }) {
     console.log("[DEBUG] AuthModal: handleGoogleLogin started.");
 
     try {
-      console.log("[AuthModal] Using popup for Google login...");
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      console.log("[AuthModal] Popup successful, processing...");
-      localStorage.removeItem('isLoggingIn');
-      await handleAuthSuccess(user);
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+      if (isLocalhost) {
+        console.log("[AuthModal] Localhost detected - using popup...");
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        console.log("[AuthModal] Popup successful, processing...");
+        localStorage.removeItem('isLoggingIn');
+        await handleAuthSuccess(user);
+      } else {
+        console.log("[AuthModal] Production - using redirect...");
+        await setPersistence(auth, browserLocalPersistence);
+        localStorage.setItem('isLoggingIn', JSON.stringify({ timestamp: Date.now() }));
+        await signInWithRedirect(auth, googleProvider);
+      }
     } catch (err) {
       console.error("[AuthModal] Login error:", err);
       // Ignore user closing popup
