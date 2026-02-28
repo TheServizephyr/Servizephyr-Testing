@@ -143,10 +143,13 @@ export default function AuthModal({ isOpen, onClose }) {
     console.log("[DEBUG] AuthModal: handleGoogleLogin started.");
 
     try {
-      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      const hostname = window.location.hostname;
+      const usePopup = hostname === 'localhost'
+        || hostname === '127.0.0.1'
+        || hostname.endsWith('.vercel.app');
 
-      if (isLocalhost) {
-        console.log("[AuthModal] Localhost detected - using popup...");
+      if (usePopup) {
+        console.log("[AuthModal] Using popup (localhost/Vercel)...");
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
         console.log("[AuthModal] Popup successful, processing...");

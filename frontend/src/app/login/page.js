@@ -82,12 +82,15 @@ function LoginPageContent() {
         setError("");
 
         try {
-            // Use popup for localhost (redirect doesn't work well on localhost)
-            // Use redirect for production (better for mobile)
-            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            // Use popup for localhost and Vercel preview URLs (redirect breaks there due to cross-origin)
+            // Use redirect for real production domains (better for mobile like Mi/Vivo)
+            const hostname = window.location.hostname;
+            const usePopup = hostname === 'localhost'
+                || hostname === '127.0.0.1'
+                || hostname.endsWith('.vercel.app');
 
-            if (isLocalhost) {
-                console.log("[Login] Localhost detected - using popup...");
+            if (usePopup) {
+                console.log("[Login] Using popup (localhost/Vercel)...");
                 const result = await signInWithPopup(auth, googleProvider);
                 console.log("[Login] Popup successful, processing...");
                 setLoading(true);
