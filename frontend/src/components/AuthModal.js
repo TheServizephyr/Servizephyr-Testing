@@ -10,7 +10,7 @@ import { X } from "lucide-react";
 
 // --- START: CORRECT FIREBASE IMPORT ---
 import { auth, googleProvider } from "@/lib/firebase";
-import { signInWithPopup, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { signInWithPopup, signInWithRedirect, getRedirectResult, setPersistence, browserLocalPersistence } from "firebase/auth";
 
 export default function AuthModal({ isOpen, onClose }) {
   const [msg, setMsg] = useState("");
