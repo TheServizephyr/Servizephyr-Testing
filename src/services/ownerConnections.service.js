@@ -5,24 +5,6 @@ async function getOwnerConnections(req) {
   const firestore = owner.firestore;
   const ownerId = owner.ownerUid;
 
-  const [restaurantsQuery, shopsQuery, vendorsQuery] = await Promise.all([
-    firestore
-      .collection('restaurants')
-      .where('ownerId', '==', ownerId)
-      .where('botPhoneNumberId', '!=', null)
-      .get(),
-    firestore
-      .collection('shops')
-      .where('ownerId', '==', ownerId)
-      .where('botPhoneNumberId', '!=', null)
-      .get(),
-    firestore
-      .collection('street_vendors')
-      .where('ownerId', '==', ownerId)
-      .where('botPhoneNumberId', '!=', null)
-      .get(),
-  ]);
-
   const mapConnection = (doc) => {
     const data = doc.data() || {};
     return {
@@ -33,12 +15,30 @@ async function getOwnerConnections(req) {
     };
   };
 
+  const fetchCollection = async (collectionName) => {
+    try {
+      const snap = await firestore
+        .collection(collectionName)
+        .where('ownerId', '==', ownerId)
+        .get();
+      // Filter in JS to avoid needing a composite index for `!= null`
+      return snap.docs
+        .filter((doc) => doc.data()?.botPhoneNumberId != null)
+        .map(mapConnection);
+    } catch (err) {
+      console.warn(`[getOwnerConnections] Failed to fetch ${collectionName}:`, err.message);
+      return [];
+    }
+  };
+
+  const [restaurants, shops, vendors] = await Promise.all([
+    fetchCollection('restaurants'),
+    fetchCollection('shops'),
+    fetchCollection('street_vendors'),
+  ]);
+
   return {
-    connections: [
-      ...restaurantsQuery.docs.map(mapConnection),
-      ...shopsQuery.docs.map(mapConnection),
-      ...vendorsQuery.docs.map(mapConnection),
-    ],
+    connections: [...restaurants, ...shops, ...vendors],
   };
 }
 
