@@ -479,7 +479,7 @@ const AssignRiderModal = ({ isOpen, onClose, onAssign, initialSelectedOrders, ri
                                         </div>
                                         <div className="flex justify-between text-xs text-muted-foreground mt-1">
                                             <span>{order.customer}</span>
-                                            <span>{order.customerAddress ? order.customerAddress.substring(0, 15) + '...' : 'No Address'}</span>
+                                            <span>{(() => { const a = order.customerAddress; const s = typeof a === 'string' ? a : (a?.full || a?.label || a?.street || ''); return s ? s.substring(0, 15) + '...' : 'No Address'; })()}</span>
                                         </div>
                                     </Label>
                                 </div>
@@ -2051,7 +2051,7 @@ export default function LiveOrdersPage() {
                 const matchesCustomerName = (order.customerName || order.customer || '').toLowerCase().includes(lowercasedQuery);
                 // Check both customerPhone and phoneNumber fields
                 const matchesCustomerPhone = (order.customerPhone || order.phoneNumber || '').includes(searchQuery);
-                const matchesCustomerAddress = (order.customerAddress || order.deliveryAddress || '').toLowerCase().includes(lowercasedQuery);
+                const matchesCustomerAddress = (() => { const a = order.customerAddress || order.deliveryAddress; const s = typeof a === 'string' ? a : (a?.full || a?.label || a?.street || a?.city || ''); return s.toLowerCase().includes(lowercasedQuery); })();
                 const matchesItems = (order.items || []).some(item => {
                     const itemName = item.name || item.itemName || '';
                     return itemName.toLowerCase().includes(lowercasedQuery);
