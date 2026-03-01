@@ -842,10 +842,24 @@ function OrderTrackingContent() {
                                         {orderData.order.customerName || orderData.order.customer || 'Guest'}
                                     </h3>
                                     <p className="text-sm text-gray-600 leading-relaxed font-medium">
-                                        {/* Fallback chain: customerAddress string -> address object (if exists) -> default message */}
-                                        {orderData.order.customerAddress ||
-                                            (orderData.order.address && (orderData.order.address.street || orderData.order.address.formatted_address || orderData.order.address.text)) ||
-                                            'Address details not available'}
+                                        {(() => {
+                                            const addr = orderData.order.customerAddress;
+                                            // customerAddress can be a string or an object {full, label, street, city...}
+                                            if (typeof addr === 'string' && addr.trim()) return addr;
+                                            if (addr && typeof addr === 'object') {
+                                                return addr.full || addr.label || addr.formatted_address ||
+                                                    [addr.street, addr.landmark, addr.city, addr.state, addr.pincode]
+                                                        .filter(Boolean).join(', ') ||
+                                                    'Address details not available';
+                                            }
+                                            // Fallback to order.address field
+                                            const a2 = orderData.order.address;
+                                            if (typeof a2 === 'string' && a2.trim()) return a2;
+                                            if (a2 && typeof a2 === 'object') {
+                                                return a2.street || a2.formatted_address || a2.text || 'Address details not available';
+                                            }
+                                            return 'Address details not available';
+                                        })()}
                                     </p>
                                 </div>
                             </div>
