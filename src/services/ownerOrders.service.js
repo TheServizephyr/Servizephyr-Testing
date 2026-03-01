@@ -432,7 +432,6 @@ async function updateOwnerOrders(req) {
   const businessId = owner.businessId;
   const businessData = owner.businessData || {};
   const body = req.body || {};
-  const database = await getDatabase();
 
   const idsToUpdate = Array.isArray(body.idsToUpdate) ? body.idsToUpdate : [];
   const orderIds = Array.isArray(body.orderIds) ? body.orderIds : [];
@@ -670,6 +669,7 @@ async function updateOwnerOrders(req) {
       });
 
       try {
+        const database = await getDatabase();
         const trackingPath = `delivery_tracking/${effect.id}`;
         if (['delivered', 'rejected', 'cancelled', 'served', 'paid'].includes(effect.status)) {
           await database.ref(trackingPath).remove();
