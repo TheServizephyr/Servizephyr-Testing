@@ -424,7 +424,7 @@ async function getOwnerOrders(req) {
 
 async function updateOwnerOrders(req) {
   const owner = await resolveOwnerContext(req, {
-    checkRevoked: true,
+    checkRevoked: false,
     requiredPermissions: [PERMISSIONS.UPDATE_ORDER_STATUS, PERMISSIONS.PROCESS_PAYMENT, PERMISSIONS.REFUND_ORDER],
   });
 
