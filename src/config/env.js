@@ -11,6 +11,7 @@ const rawEnvSchema = z.object({
   CORS_ALLOW_CREDENTIALS: z.string().optional().default('true'),
   FIREBASE_SERVICE_ACCOUNT_JSON: z.string().optional().default(''),
   FIREBASE_SERVICE_ACCOUNT_BASE64: z.string().optional().default(''),
+  FIREBASE_DATABASE_URL: z.string().optional().default(''),
   KV_REST_API_URL: z.string().optional().default(''),
   KV_REST_API_TOKEN: z.string().optional().default(''),
   LEGACY_API_BASE_URL: z.string().optional().default(''),
@@ -65,6 +66,7 @@ const config = {
   firebase: {
     serviceAccountJson: parsed.FIREBASE_SERVICE_ACCOUNT_JSON,
     serviceAccountBase64: parsed.FIREBASE_SERVICE_ACCOUNT_BASE64,
+    databaseUrl: String(parsed.FIREBASE_DATABASE_URL || '').trim(),
   },
   upstash: {
     url: String(parsed.KV_REST_API_URL || '').trim(),

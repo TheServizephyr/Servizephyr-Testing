@@ -33,9 +33,13 @@ function getAdminApp() {
   }
 
   const serviceAccount = parseServiceAccountFromEnv();
-  appInstance = admin.initializeApp({
+  const initOptions = {
     credential: admin.credential.cert(serviceAccount),
-  });
+  };
+  if (config.firebase.databaseUrl) {
+    initOptions.databaseURL = config.firebase.databaseUrl;
+  }
+  appInstance = admin.initializeApp(initOptions);
 
   logger.info({ projectId: serviceAccount.project_id }, 'Firebase Admin initialized');
   return appInstance;
