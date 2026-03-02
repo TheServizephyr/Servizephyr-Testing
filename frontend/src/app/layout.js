@@ -8,6 +8,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Script from 'next/script';
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Font configuration
 const alegreya = Alegreya({
@@ -272,6 +274,8 @@ export default function RootLayout({ children }) {
             <Toaster />
           </FirebaseClientProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
