@@ -120,123 +120,128 @@ async function fetchSalesChartOrders(owner, sevenDaysAgo) {
 }
 
 async function getOwnerDashboardData(req) {
-  const owner = await resolveOwnerContext(req, {
-    requiredPermissions: [PERMISSIONS.VIEW_ORDERS],
-  });
-
-  const filter = String(req.query.filter || 'Today');
-  const { startDate, prevStartDate } = getFilterRanges(filter);
-  const now = new Date();
-
-  const [ordersSinceDocs, newCustomersSnap, liveOrdersDocs, chartDocs, menuSnap] = await Promise.all([
-    fetchOrdersSince(owner, prevStartDate),
-    owner.businessSnap.ref.collection('customers').where('lastOrderDate', '>=', startDate).get(),
-    fetchLiveOrders(owner),
-    fetchSalesChartOrders(owner, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
-    owner.businessSnap.ref.collection('menu').get(),
-  ]);
-
-  const { current: currentOrders, previous: prevOrders } = splitOrdersByRange(
-    ordersSinceDocs,
-    startDate,
-    prevStartDate
-  );
-
-  const currentNonRejected = currentOrders.filter(
-    (order) => String(order.status || '').toLowerCase() !== 'rejected'
-  );
-  const prevNonRejected = prevOrders.filter(
-    (order) => String(order.status || '').toLowerCase() !== 'rejected'
-  );
-
-  const sales = currentNonRejected.reduce((sum, order) => sum + toNumber(order.totalAmount, 0), 0);
-  const prevSales = prevNonRejected.reduce((sum, order) => sum + toNumber(order.totalAmount, 0), 0);
-
-  const avgOrderValue = currentNonRejected.length > 0 ? sales / currentNonRejected.length : 0;
-  const prevAvgOrderValue = prevNonRejected.length > 0 ? prevSales / prevNonRejected.length : 0;
-
-  const todayStart = new Date(now);
-  todayStart.setHours(0, 0, 0, 0);
-  const todayRejections = ordersSinceDocs.filter((doc) => {
-    const data = doc.data() || {};
-    const status = String(data.status || '').toLowerCase();
-    if (status !== 'rejected') return false;
-    const orderDate = toDate(data.orderDate);
-    return orderDate && orderDate >= todayStart;
-  }).length;
-
-  const stats = {
-    sales,
-    salesChange: calcChange(sales, prevSales),
-    orders: currentNonRejected.length,
-    ordersChange: calcChange(currentNonRejected.length, prevNonRejected.length),
-    newCustomers: newCustomersSnap.size,
-    newCustomersChange: 0,
-    avgOrderValue,
-    avgOrderValueChange: calcChange(avgOrderValue, prevAvgOrderValue),
-    todayRejections,
-  };
-
-  const liveOrders = liveOrdersDocs.map((doc) => {
-    const orderData = doc.data() || {};
-    return {
-      id: doc.id,
-      customer: orderData.customerName,
-      amount: orderData.totalAmount,
-      items: (orderData.items || []).map((item) => ({
-        name: item.name,
-        quantity: item.qty,
-      })),
-    };
-  });
-
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const salesByDay = {};
-  daysOfWeek.forEach((day) => {
-    salesByDay[day] = 0;
-  });
-  chartDocs.forEach((doc) => {
-    const data = doc.data() || {};
-    const orderDate = toDate(data.orderDate);
-    if (!orderDate) return;
-    const day = orderDate.toLocaleDateString('en-US', { weekday: 'short' });
-    salesByDay[day] = (salesByDay[day] || 0) + toNumber(data.totalAmount, 0);
-  });
-  const todayDayIndex = new Date().getDay();
-  const orderedDays = [...daysOfWeek.slice(todayDayIndex + 1), ...daysOfWeek.slice(0, todayDayIndex + 1)];
-  const salesChart = orderedDays.map((day) => ({
-    day,
-    sales: salesByDay[day] || 0,
-  }));
-
-  const topItemCounts = {};
-  currentNonRejected.slice(0, 50).forEach((order) => {
-    (order.items || []).forEach((item) => {
-      const itemName = String(item.name || '');
-      if (!itemName) return;
-      topItemCounts[itemName] = (topItemCounts[itemName] || 0) + toNumber(item.quantity, 0);
+  try {
+    const owner = await resolveOwnerContext(req, {
+      requiredPermissions: [PERMISSIONS.VIEW_ORDERS],
     });
-  });
-  const topSellingNames = Object.entries(topItemCounts)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 3)
-    .map(([name]) => name);
 
-  const menuItems = menuSnap.docs.map((doc) => ({ id: doc.id, ...(doc.data() || {}) }));
-  const topItems = menuItems
-    .filter((item) => topSellingNames.includes(item.name))
-    .map((item, index) => ({
-      name: item.name,
-      count: topItemCounts[item.name],
-      imageUrl: item.imageUrl || `https://picsum.photos/seed/dish${index + 1}/200/200`,
+    const filter = String(req.query.filter || 'Today');
+    const { startDate, prevStartDate } = getFilterRanges(filter);
+    const now = new Date();
+
+    const [ordersSinceDocs, newCustomersSnap, liveOrdersDocs, chartDocs, menuSnap] = await Promise.all([
+      fetchOrdersSince(owner, prevStartDate),
+      owner.businessSnap.ref.collection('customers').where('lastOrderDate', '>=', startDate).get(),
+      fetchLiveOrders(owner),
+      fetchSalesChartOrders(owner, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)),
+      owner.businessSnap.ref.collection('menu').get(),
+    ]);
+
+    const { current: currentOrders, previous: prevOrders } = splitOrdersByRange(
+      ordersSinceDocs,
+      startDate,
+      prevStartDate
+    );
+
+    const currentNonRejected = currentOrders.filter(
+      (order) => String(order.status || '').toLowerCase() !== 'rejected'
+    );
+    const prevNonRejected = prevOrders.filter(
+      (order) => String(order.status || '').toLowerCase() !== 'rejected'
+    );
+
+    const sales = currentNonRejected.reduce((sum, order) => sum + toNumber(order.totalAmount, 0), 0);
+    const prevSales = prevNonRejected.reduce((sum, order) => sum + toNumber(order.totalAmount, 0), 0);
+
+    const avgOrderValue = currentNonRejected.length > 0 ? sales / currentNonRejected.length : 0;
+    const prevAvgOrderValue = prevNonRejected.length > 0 ? prevSales / prevNonRejected.length : 0;
+
+    const todayStart = new Date(now);
+    todayStart.setHours(0, 0, 0, 0);
+    const todayRejections = ordersSinceDocs.filter((doc) => {
+      const data = doc.data() || {};
+      const status = String(data.status || '').toLowerCase();
+      if (status !== 'rejected') return false;
+      const orderDate = toDate(data.orderDate);
+      return orderDate && orderDate >= todayStart;
+    }).length;
+
+    const stats = {
+      sales,
+      salesChange: calcChange(sales, prevSales),
+      orders: currentNonRejected.length,
+      ordersChange: calcChange(currentNonRejected.length, prevNonRejected.length),
+      newCustomers: newCustomersSnap.size,
+      newCustomersChange: 0,
+      avgOrderValue,
+      avgOrderValueChange: calcChange(avgOrderValue, prevAvgOrderValue),
+      todayRejections,
+    };
+
+    const liveOrders = liveOrdersDocs.map((doc) => {
+      const orderData = doc.data() || {};
+      return {
+        id: doc.id,
+        customer: orderData.customerName,
+        amount: orderData.totalAmount,
+        items: (orderData.items || []).map((item) => ({
+          name: item.name,
+          quantity: item.qty,
+        })),
+      };
+    });
+
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const salesByDay = {};
+    daysOfWeek.forEach((day) => {
+      salesByDay[day] = 0;
+    });
+    chartDocs.forEach((doc) => {
+      const data = doc.data() || {};
+      const orderDate = toDate(data.orderDate);
+      if (!orderDate) return;
+      const day = orderDate.toLocaleDateString('en-US', { weekday: 'short' });
+      salesByDay[day] = (salesByDay[day] || 0) + toNumber(data.totalAmount, 0);
+    });
+    const todayDayIndex = new Date().getDay();
+    const orderedDays = [...daysOfWeek.slice(todayDayIndex + 1), ...daysOfWeek.slice(0, todayDayIndex + 1)];
+    const salesChart = orderedDays.map((day) => ({
+      day,
+      sales: salesByDay[day] || 0,
     }));
 
-  return {
-    stats,
-    liveOrders,
-    salesChart,
-    topItems,
-  };
+    const topItemCounts = {};
+    currentNonRejected.slice(0, 50).forEach((order) => {
+      (order.items || []).forEach((item) => {
+        const itemName = String(item.name || '');
+        if (!itemName) return;
+        topItemCounts[itemName] = (topItemCounts[itemName] || 0) + toNumber(item.quantity, 0);
+      });
+    });
+    const topSellingNames = Object.entries(topItemCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 3)
+      .map(([name]) => name);
+
+    const menuItems = menuSnap.docs.map((doc) => ({ id: doc.id, ...(doc.data() || {}) }));
+    const topItems = menuItems
+      .filter((item) => topSellingNames.includes(item.name))
+      .map((item, index) => ({
+        name: item.name,
+        count: topItemCounts[item.name],
+        imageUrl: item.imageUrl || `https://picsum.photos/seed/dish${index + 1}/200/200`,
+      }));
+
+    return {
+      stats,
+      liveOrders,
+      salesChart,
+      topItems,
+    };
+  } catch (error) {
+    console.error("[getOwnerDashboardData] CRASHED:", error);
+    throw error;
+  }
 }
 
 module.exports = {
